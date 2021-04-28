@@ -1,4 +1,5 @@
 from tabulate import tabulate
+import sys
 from tkinter import filedialog
 import CargarArchivo as CargarArchivo
 import Gramatica as Gramatica
@@ -7,6 +8,7 @@ import time
 import os
 DatosCargados="______________Datos Cargados Correctamente_______________"
 ruta=""
+opcion=0
 def Inicio():
 	table = [["SUPER AUTOMATA"],["JUAN PABLO GONZALEZ LEAL"],["201901374"]]
 	print(tabulate(table, tablefmt="pretty"))
@@ -35,6 +37,7 @@ def menu():
 
 def eleccionMenu(valor):
 	global ruta
+	global opcion
 	while True:
 		if valor == 1:
 			ruta=filedialog.askopenfilename(title="abrir")
@@ -52,7 +55,7 @@ def eleccionMenu(valor):
 			Gramatica.analizar(opcion)
 			esperar()
 		elif valor == 3:
-			print('posicion 3')
+			print(opcion)
 			menu()
 		elif  valor == 4:
 			print('posicion 4')
@@ -66,9 +69,11 @@ def esperar():
 	print('2. Desea Salir del Progrma')
 	opcion=int(input('ELIJA UNA OPCION'))
 	if opcion==1:
+		for i in range(0,100):
+			print("")
 		menu()
 	else:
-		print('Gracias')
+		sys.exit()
 		
 				
 Inicio()
