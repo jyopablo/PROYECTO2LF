@@ -20,8 +20,8 @@ def AutomataPila(opcion):
 	siguiente=""
 	cajon=""
 	x1="ï"
-	x2="λ"
-	x3="λ"
+	x2="&lambda;"
+	x3="&lambda;"
 	x4="p"
 	x5="#"
 	a="a"
@@ -89,28 +89,27 @@ def AutomataPila(opcion):
 				ultimo=palabra2
 				contadorIter += 1
 				Iteracion.append(contadorIter)
-				Pila.append(palabra1+cajon)
+				Pila.append(palabra1+cajon+x5)
 				Entrada.append(a)
 				Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
-				conversion(palabra2,siguiente,a,contadorIter,x1,x2,x3,x4,cajon)
+				conversion(palabra2,siguiente,a,contadorIter,x1,x2,x3,x4,x5,cajon)
 				cajon=siguiente+cajon
 				palabra1=""
 				palabra2=""
 
 			if contadorterminales==1 and contadornoterminales==0:
+				contadorIter += 1
 				if siguiente != None:
 					ultimo=palabra2
-					contadorIter += 1
 					Iteracion.append(contadorIter)
-					Pila.append(palabra1+cajon)
+					Pila.append(palabra1+cajon+x5)
 					Entrada.append(a)
 					Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
 					palabra1=""
 					palabra2=""
 				else:
-				    contadorIter += 1
 				    Iteracion.append(contadorIter)
-				    Pila.append(palabra1+cajon)
+				    Pila.append(palabra1+cajon+x5)
 				    Entrada.append(a)
 				    Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
 				    ultimo=palabra2
@@ -118,19 +117,18 @@ def AutomataPila(opcion):
 				    palabra2=""
 
 			if contadorterminales==0 and contadornoterminales==1:
+				contadorIter += 1
 				if siguiente != None:
 					ultimo=palabra2
-					contadorIter += 1
 					Iteracion.append(contadorIter)
-					Pila.append(palabra1+cajon)
+					Pila.append(palabra1+cajon+x5)
 					Entrada.append(a)
 					Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
 					palabra1=""
 					palabra2=""
 				else:
-				    contadorIter += 1
 				    Iteracion.append(contadorIter)
-				    Pila.append(palabra1+cajon)
+				    Pila.append(palabra1+cajon+x5)
 				    Entrada.append(a)
 				    Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
 				    ultimo=palabra2
@@ -141,17 +139,28 @@ def AutomataPila(opcion):
 			if contadorterminales==1 and contadornoterminales==1:
 				palabra1=""
 				palabra2=""
-				pass
 
 	cajon=ultimo+cajon
 	if cajon != None:
 		for i in cajon:
 			contadorIter += 1
 			Iteracion.append(contadorIter)
-			Pila.append(cajon)
+			Pila.append(cajon+x5)
 			Entrada.append(a)
 			Transiciones.append("(q,"+i+","+i+",q,"+x2+")")
+			cajon=cajon.replace(i,"")
+	contadorIter += 1
+	Iteracion.append(contadorIter)
+	Pila.append("#")
+	Entrada.append("&lambda;")
+	Transiciones.append("(q,&lambda;,#;f,&lambda;)")
+	contadorIter += 1
+	Iteracion.append(contadorIter)
+	Pila.append("&lambda;")
+	Entrada.append("&lambda;")
+	Transiciones.append("f")
 	print(Iteracion)		
+	print(Entrada)	
 	print(Pila)		 
 	print(Transiciones)		
 
@@ -182,9 +191,9 @@ def imprimir(opcion):
 		if igual==True:
 		     print('Produccion: '+Produccion[i])
 
-def conversion(palabra1,siguiente,a,contadorIter,x1,x2,x3,x4,cajon):
-	contadorIter += 1
+def conversion(palabra1,siguiente,a,contadorIter,x1,x2,x3,x4,x5,cajon):
+	contadorIter=contadorIter+1 
 	Iteracion.append(contadorIter)
-	Pila.append(palabra1+cajon)
+	Pila.append(palabra1+cajon+x5)
 	Entrada.append(a)
 	Transiciones.append("("+x1+","+siguiente+","+siguiente+","+x4+","+x2+")")
