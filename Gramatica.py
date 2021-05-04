@@ -8,6 +8,7 @@ Iteracion=[]
 Pila=[]
 Entrada=[]
 Transiciones=[]
+TransicionesGrafico=[]
 def analizar(opcion):
 	imprimir(opcion)
 	AutomataPila(opcion)	     
@@ -19,6 +20,8 @@ def AutomataPila(opcion):
 	global g_TerminalInicial
 	siguiente=""
 	cajon=""
+	y2="λ"
+	y3="λ"
 	x1="ï"
 	x2="&lambda;"
 	x3="&lambda;"
@@ -64,6 +67,7 @@ def AutomataPila(opcion):
 						x4="q"
 						x1="q"
 						x3=palabra1
+						y3=palabra1
 						paso2=False
 						paso3=True
 					elif caracter=="-":	
@@ -92,6 +96,7 @@ def AutomataPila(opcion):
 				Pila.append(palabra1+cajon+x5)
 				Entrada.append(a)
 				Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
+				TransicionesGrafico.append(y2+","+y3+";"+palabra2)
 				conversion(palabra2,siguiente,a,contadorIter,x1,x2,x3,x4,x5,cajon)
 				cajon=siguiente+cajon
 				palabra1=""
@@ -105,6 +110,7 @@ def AutomataPila(opcion):
 					Pila.append(palabra1+cajon+x5)
 					Entrada.append(a)
 					Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
+					TransicionesGrafico.append(y2+","+y3+";"+palabra2)
 					palabra1=""
 					palabra2=""
 				else:
@@ -112,6 +118,7 @@ def AutomataPila(opcion):
 				    Pila.append(palabra1+cajon+x5)
 				    Entrada.append(a)
 				    Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
+				    TransicionesGrafico.append(y2+","+y3+";"+palabra2)
 				    ultimo=palabra2
 				    palabra1=""
 				    palabra2=""
@@ -124,6 +131,7 @@ def AutomataPila(opcion):
 					Pila.append(palabra1+cajon+x5)
 					Entrada.append(a)
 					Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
+					TransicionesGrafico.append(y2+","+y3+";"+palabra2)
 					palabra1=""
 					palabra2=""
 				else:
@@ -131,12 +139,14 @@ def AutomataPila(opcion):
 				    Pila.append(palabra1+cajon+x5)
 				    Entrada.append(a)
 				    Transiciones.append("("+x1+","+x2+","+x3+","+x4+","+palabra2+")")
+				    TransicionesGrafico.append(y2+","+y3+";"+palabra2)
 				    ultimo=palabra2
 				    palabra1=""
 				    palabra2=""
 
 
 			if contadorterminales==1 and contadornoterminales==1:
+				TransicionesGrafico.append(y2+","+y3+";"+palabra2)
 				palabra1=""
 				palabra2=""
 
@@ -148,6 +158,7 @@ def AutomataPila(opcion):
 			Pila.append(cajon+x5)
 			Entrada.append(a)
 			Transiciones.append("(q,"+i+","+i+",q,"+x2+")")
+			TransicionesGrafico.append(i+","+i+";"+y2)
 			cajon=cajon.replace(i,"")
 	contadorIter += 1
 	Iteracion.append(contadorIter)
@@ -158,12 +169,7 @@ def AutomataPila(opcion):
 	Iteracion.append(contadorIter)
 	Pila.append("&lambda;")
 	Entrada.append("&lambda;")
-	Transiciones.append("f")
-	print(Iteracion)		
-	print(Entrada)	
-	print(Pila)		 
-	print(Transiciones)		
-
+	Transiciones.append("f")	
 
 def imprimir(opcion):
 	global g_Terminales

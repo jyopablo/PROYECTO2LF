@@ -50,12 +50,13 @@ def menu():
 		elif valor == 2:
 			tamaño=len(Titulos)
 			for i in range(0,tamaño):
-				print(str(Cantidad1[i])+". "+Titulos[i])
+				print(str(Cantidad1[i])+". Nombre:"+Titulos[i])
+
 			opcion=int(input('ELIJA UNA OPCION'))
 			Gramatica.analizar(opcion)
 			esperar()
 		elif valor == 3:
-			Equivalente.crear()
+			Equivalente.crear(opcion)
 			menu()
 		elif  valor == 4:
 			print('posicion 4')
@@ -78,6 +79,9 @@ def esperar():
 		sys.exit()
 
 def eliminar():
+	global ruta
+	global opcion
+	opcion=0
 	g_nombre=""
 	g_Noterminales=""
 	g_Terminales=""
@@ -98,5 +102,6 @@ def eliminar():
 	Pila.clear()
 	Entrada.clear()
 	Transiciones.clear()
+	TransicionesGrafico.clear()
 
 Inicio()

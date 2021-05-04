@@ -16,14 +16,15 @@ Validos=[]
 NoValidos=[]
 ContadorCantidad=0
 Validar=False
+conta=0
 def analizar(cadena):
+	global conta
 	global contador
 	global ContadorCantidad
 	global Validar
 
-	inicio=cadena[0]
 	final=cadena[-1]
-	if inicio=="G":
+	if conta==0:
 		ContadorCantidad += 1
 		Nombre(cadena)
 
@@ -41,9 +42,12 @@ def analizar(cadena):
 			Validos.append(ContadorCantidad)
 		else:
 			Eliminar()
-			NoValidos.append(ContadorCantidad)	
+			NoValidos.append(ContadorCantidad)
+		conta=-1		
 		contador=0
 		Validar=False
+
+	conta += 1	
 
 			
 def Nombre(cadena):
@@ -65,7 +69,6 @@ def Automatas(cadena):
 	Terminalinicial.append(terminalinicial)
 	Cantidad2.append(ContadorCantidad)
 
-
 def Producciones(cadena):
 	global ContadorCantidad
 	global contador
@@ -73,6 +76,7 @@ def Producciones(cadena):
 	global noterminales
 	global terminalinicial
 	global Validar
+	palabra=""
 	contadorterminales=0
 	contadornoterminales=0
 	paso1=True
@@ -87,14 +91,29 @@ def Producciones(cadena):
 			else:
 				pass
 		elif paso2==True:
-			ter=caracter in terminales
-			noter=caracter in noterminales
-			if ter==True:
-				contadorterminales += 1
-			elif noter==True:
-				contadornoterminales += 1
+			if caracter==" ":
+				ter= palabra in terminales
+				noter=palabra in noterminales
+				if ter == True:
+					contadorterminales += 1
+				elif noter == True:
+					contadornoterminales += 1
+				palabra=""	
+			else:
+				palabra=palabra+caracter
+
+	print(contadorterminales)
+	print(contadornoterminales)
+
 	if contadorterminales==2 and contadornoterminales==1:
 		Validar=True
+	elif contadorterminales==4 and contadornoterminales==1:
+		Validar=True
+	elif contadorterminales==3 and contadornoterminales==1:
+		Validar=True
+	elif contadorterminales>=0 and contadornoterminales<=1:
+		Validos=True
+		
 
 	Cantidad3.append(ContadorCantidad)	
 	contador += 1
